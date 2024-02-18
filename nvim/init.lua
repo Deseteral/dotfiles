@@ -11,7 +11,7 @@ vim.opt.termguicolors = true
 
 -- Key mappings
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", ":Vex<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>pv", ":Vex<CR>:lua MiniFiles.open()<CR>", { noremap = true })
 vim.keymap.set("n", "<D-p>", ":GFiles<CR>", { noremap = true })
 vim.keymap.set("n", "<D-o>", ":lua MiniFiles.open()<CR>", { noremap = true })
 
@@ -31,9 +31,17 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Install plugins
 require('lazy').setup({
+    -- Code editing
+    { 'numToStr/Comment.nvim',            lazy = false },
+
+    -- File manager
+    { 'echasnovski/mini.files',           version = false },
+
+    -- Fuzzy finder
     { 'junegunn/fzf' },
     { 'junegunn/fzf.vim' },
 
+    -- LSP setup. Dependencies from lsp-zero docs (as of 2024-02-17).
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
 
@@ -43,11 +51,24 @@ require('lazy').setup({
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
 
-    { 'ayu-theme/ayu-vim' },
-
+    -- Nerd font support
     { 'nvim-tree/nvim-web-devicons' },
 
-    { 'echasnovski/mini.files',           version = false },
+    -- Color schemes
+    { 'ayu-theme/ayu-vim' },
+    { "nyoom-engineering/oxocarbon.nvim" },
+    { "bluz71/vim-moonfly-colors",        name = "moonfly", lazy = false, priority = 1000 },
+    { 'kepano/flexoki-neovim',            name = 'flexoki' },
+    { 'crispybaccoon/evergarden' },
+})
+
+-- Setup comments
+require('Comment').setup()
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove({ 'r', 'o' })
+    end,
 })
 
 -- Setup mini.files
@@ -67,15 +88,11 @@ require('mini.files').setup({
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
     lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    -- Replace the language servers listed here
-    -- with the ones you want to install
     ensure_installed = {
         'tsserver',
         'eslint',
@@ -111,12 +128,24 @@ lsp_zero.format_on_save({
 })
 
 -- Color scheme
-vim.g.ayucolor = 'dark'
-vim.cmd.colorscheme('ayu')
+-- vim.g.ayucolor = 'dark'
+-- vim.cmd.colorscheme('ayu')
+
+-- vim.opt.background = "dark"
+-- vim.cmd.colorscheme "oxocarbon"
+
+-- vim.cmd.colorscheme('moonfly')
+
+-- vim.cmd.colorscheme('flexoki-dark')
+
+require 'evergarden'.setup {
+    transparent_background = false,
+    contrast_dark = 'hard',
+}
+vim.cmd.colorscheme('evergarden')
 
 -- Neovide specific settings
 if vim.g.neovide then
-    -- vim.o.guifont = 'Berkeley Mono Variable:h15'
     vim.o.guifont = 'Berkeley Mono Variable,Symbols Nerd Font Mono:h15'
 
     -- Allow clipboard copy paste in neovim
