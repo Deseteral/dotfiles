@@ -11,9 +11,9 @@ vim.opt.termguicolors = true
 
 -- Key mappings
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", ":Vex<CR>:lua MiniFiles.open()<CR>", { noremap = true })
-vim.keymap.set("n", "<D-p>", ":GFiles<CR>", { noremap = true })
-vim.keymap.set("n", "<D-o>", ":lua MiniFiles.open()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>pv", ":vsplit<CR><C-w><C-w>", { noremap = true })
+vim.keymap.set("n", "<D-p>", ":Telescope find_files<CR>", { noremap = true })
+vim.keymap.set("n", "<D-o>", ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0), false)<CR>", { noremap = true })
 
 -- Setup lazy
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -38,8 +38,9 @@ require('lazy').setup({
     { 'echasnovski/mini.files',           version = false },
 
     -- Fuzzy finder
-    { 'junegunn/fzf' },
-    { 'junegunn/fzf.vim' },
+    -- { 'junegunn/fzf' },
+    -- { 'junegunn/fzf.vim' },
+    { 'nvim-telescope/telescope.nvim',    tag = '0.1.5',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
     -- LSP setup. Dependencies from lsp-zero docs (as of 2024-02-17).
     { 'williamboman/mason.nvim' },
@@ -57,7 +58,7 @@ require('lazy').setup({
     -- Color schemes
     { 'ayu-theme/ayu-vim' },
     { "nyoom-engineering/oxocarbon.nvim" },
-    { "bluz71/vim-moonfly-colors",        name = "moonfly", lazy = false, priority = 1000 },
+    { "bluz71/vim-moonfly-colors",        name = "moonfly", lazy = false,                              priority = 1000 },
     { 'kepano/flexoki-neovim',            name = 'flexoki' },
     { 'crispybaccoon/evergarden' },
 })
@@ -101,6 +102,16 @@ require('mason-lspconfig').setup({
     },
     handlers = {
         lsp_zero.default_setup,
+        eslint = function()
+            require('lspconfig').eslint.setup({
+                on_attach = function(client, bufnr)
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = bufnr,
+                        command = "EslintFixAll",
+                    })
+                end,
+            })
+        end,
         lua_ls = function()
             require('lspconfig').lua_ls.setup({
                 settings = {
