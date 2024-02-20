@@ -12,7 +12,7 @@ vim.opt.termguicolors = true
 -- Key mappings
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", ":vsplit<CR><C-w><C-w>", { noremap = true })
-vim.keymap.set("n", "<D-p>", ":Telescope find_files<CR>", { noremap = true })
+vim.keymap.set("n", "<D-p>", ":Telescope git_files<CR>", { noremap = true })
 vim.keymap.set("n", "<D-o>", ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0), false)<CR>", { noremap = true })
 
 -- Setup lazy
@@ -31,6 +31,39 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Install plugins
 require('lazy').setup({
+    -- treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function()
+            local configs = require("nvim-treesitter.configs")
+
+            configs.setup({
+                ensure_installed = {
+                    "lua",
+                    "vim",
+                    "vimdoc",
+                    "javascript",
+                    "typescript",
+                    "html",
+                    "rust",
+                    "markdown",
+                    "markdown_inline",
+                    "tsx",
+                    "toml",
+                    "fish",
+                    "json",
+                    "yaml",
+                    "css",
+                },
+                sync_install = false,
+                highlight = { enable = true },
+                indent = { enable = true },
+                autotag = { enable = true },
+            })
+        end
+    },
+
     -- Code editing
     { 'numToStr/Comment.nvim',            lazy = false },
 
@@ -40,7 +73,7 @@ require('lazy').setup({
     -- Fuzzy finder
     -- { 'junegunn/fzf' },
     -- { 'junegunn/fzf.vim' },
-    { 'nvim-telescope/telescope.nvim',    tag = '0.1.5',    dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'nvim-telescope/telescope.nvim',    tag = '0.1.5',  dependencies = { 'nvim-lua/plenary.nvim' } },
 
     -- LSP setup. Dependencies from lsp-zero docs (as of 2024-02-17).
     { 'williamboman/mason.nvim' },
@@ -52,14 +85,32 @@ require('lazy').setup({
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
 
+    -- lspsaga
+    {
+        'nvimdev/lspsaga.nvim',
+        config = function()
+            require('lspsaga').setup({
+                symbol_in_winbar = {
+                    enable = false,
+                },
+                ui = {
+                    code_action = '󰌵',
+                },
+                lightbulb = {
+                    virtual_text = false,
+                },
+            })
+        end,
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons',
+        },
+    },
+
     -- Nerd font support
     { 'nvim-tree/nvim-web-devicons' },
 
     -- Color schemes
-    { 'ayu-theme/ayu-vim' },
-    { "nyoom-engineering/oxocarbon.nvim" },
-    { "bluz71/vim-moonfly-colors",        name = "moonfly", lazy = false,                              priority = 1000 },
-    { 'kepano/flexoki-neovim',            name = 'flexoki' },
     { 'crispybaccoon/evergarden' },
 })
 
@@ -139,16 +190,6 @@ lsp_zero.format_on_save({
 })
 
 -- Color scheme
--- vim.g.ayucolor = 'dark'
--- vim.cmd.colorscheme('ayu')
-
--- vim.opt.background = "dark"
--- vim.cmd.colorscheme "oxocarbon"
-
--- vim.cmd.colorscheme('moonfly')
-
--- vim.cmd.colorscheme('flexoki-dark')
-
 require 'evergarden'.setup {
     transparent_background = false,
     contrast_dark = 'hard',
