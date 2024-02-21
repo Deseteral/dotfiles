@@ -31,6 +31,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Install plugins
 require('lazy').setup({
+
+    { "nvim-lua/plenary.nvim" },
+
     -- treesitter
     {
         "nvim-treesitter/nvim-treesitter",
@@ -71,9 +74,7 @@ require('lazy').setup({
     { 'echasnovski/mini.files',           version = false },
 
     -- Fuzzy finder
-    -- { 'junegunn/fzf' },
-    -- { 'junegunn/fzf.vim' },
-    { 'nvim-telescope/telescope.nvim',    tag = '0.1.5',  dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'nvim-telescope/telescope.nvim',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
     -- LSP setup. Dependencies from lsp-zero docs (as of 2024-02-17).
     { 'williamboman/mason.nvim' },
@@ -84,28 +85,6 @@ require('lazy').setup({
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
-
-    -- lspsaga
-    {
-        'nvimdev/lspsaga.nvim',
-        config = function()
-            require('lspsaga').setup({
-                symbol_in_winbar = {
-                    enable = false,
-                },
-                ui = {
-                    code_action = '󰌵',
-                },
-                lightbulb = {
-                    virtual_text = false,
-                },
-            })
-        end,
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons',
-        },
-    },
 
     -- Nerd font support
     { 'nvim-tree/nvim-web-devicons' },
@@ -163,6 +142,7 @@ require('mason-lspconfig').setup({
                 end,
             })
         end,
+
         lua_ls = function()
             require('lspconfig').lua_ls.setup({
                 settings = {
@@ -183,7 +163,6 @@ lsp_zero.format_on_save({
         timeout_ms = 10000,
     },
     servers = {
-        ['tsserver'] = { 'javascript', 'typescript' },
         ['rust_analyzer'] = { 'rust' },
         ['lua_ls'] = { 'lua' },
     }
