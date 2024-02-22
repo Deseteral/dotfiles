@@ -1,81 +1,10 @@
--- Vim options
-vim.opt.scrolloff = 8
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.termguicolors = true
+require("deseteral")
 
--- Key mappings
-vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", ":vsplit<CR><C-w><C-w>", { noremap = true })
-vim.keymap.set("n", "<D-p>", ":Telescope git_files<CR>", { noremap = true })
-vim.keymap.set("n", "<D-o>", ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0), false)<CR>", { noremap = true })
+--[[
 
--- Setup lazy
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Install plugins
 require('lazy').setup({
-
-    { "nvim-lua/plenary.nvim" },
-
-    -- treesitter
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function()
-            local configs = require("nvim-treesitter.configs")
-
-            configs.setup({
-                ensure_installed = {
-                    "lua",
-                    "vim",
-                    "vimdoc",
-                    "javascript",
-                    "typescript",
-                    "html",
-                    "rust",
-                    "markdown",
-                    "markdown_inline",
-                    "tsx",
-                    "toml",
-                    "fish",
-                    "json",
-                    "yaml",
-                    "css",
-                },
-                sync_install = false,
-                highlight = { enable = true },
-                indent = { enable = true },
-                autotag = { enable = true },
-            })
-        end
-    },
-
     -- Code editing
-    { 'numToStr/Comment.nvim',            lazy = false },
-
-    -- File manager
-    { 'echasnovski/mini.files',           version = false },
-
-    -- Fuzzy finder
-    { 'nvim-telescope/telescope.nvim',    dependencies = { 'nvim-lua/plenary.nvim' } },
-
+    --
     -- LSP setup. Dependencies from lsp-zero docs (as of 2024-02-17).
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
@@ -86,33 +15,6 @@ require('lazy').setup({
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
 
-    -- Nerd font support
-    { 'nvim-tree/nvim-web-devicons' },
-
-    -- Color schemes
-    { 'crispybaccoon/evergarden' },
-})
-
--- Setup comments
-require('Comment').setup()
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "*",
-    callback = function()
-        vim.opt_local.formatoptions:remove({ 'r', 'o' })
-    end,
-})
-
--- Setup mini.files
-require('mini.files').setup({
-    mappings = {
-        close = '<esc>',
-    },
-    windows = {
-        preview = true,
-        width_focus = 50,
-        width_nofocus = 50,
-        width_preview = 50,
-    }
 })
 
 -- Setup LSP
@@ -132,6 +34,37 @@ require('mason-lspconfig').setup({
     },
     handlers = {
         lsp_zero.default_setup,
+
+        tsserver = function()
+            require('lspconfig').tsserver.setup({
+                single_file_support = false,
+                on_attach = function(client, bufnr)
+                    print('hello tsserver')
+                end
+            })
+        end,
+
+        -- tsserver = function()
+        --     -- TODO: this does not work
+        --     require('lspconfig').tsserver.setup({
+        --         init_options = {
+        --             preferences = {
+        --                 importModuleSpecifier = 'non-relative',
+        --                 useAliasesForRenames = false,
+        --             },
+        --         },
+        --
+        --         -- settings = {
+        --         --     typescript = {
+        --         --         preferences = {
+        --         --             importModuleSpecifier = 'non-relative',
+        --         --             useAliasesForRenames = false,
+        --         --         },
+        --         --     },
+        --         -- },
+        --     })
+        -- end,
+
         eslint = function()
             require('lspconfig').eslint.setup({
                 on_attach = function(client, bufnr)
@@ -168,27 +101,4 @@ lsp_zero.format_on_save({
     }
 })
 
--- Color scheme
-require 'evergarden'.setup {
-    transparent_background = false,
-    contrast_dark = 'hard',
-}
-vim.cmd.colorscheme('evergarden')
-
--- Neovide specific settings
-if vim.g.neovide then
-    vim.o.guifont = 'Berkeley Mono Variable,Symbols Nerd Font Mono:h15'
-
-    -- Allow clipboard copy paste in neovim
-    vim.keymap.set('n', '<D-s>', ':w<CR>')      -- Save
-    vim.keymap.set('v', '<D-c>', '"+y')         -- Copy
-    vim.keymap.set('n', '<D-v>', '"+P')         -- Paste normal mode
-    vim.keymap.set('v', '<D-v>', '"+P')         -- Paste visual mode
-    vim.keymap.set('c', '<D-v>', '<C-R>+')      -- Paste command mode
-    vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
-
-    vim.keymap.set('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
-    vim.keymap.set('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
-    vim.keymap.set('t', '<D-v>', '<C-R>+', { noremap = true, silent = true })
-    vim.keymap.set('v', '<D-v>', '<C-R>+', { noremap = true, silent = true })
-end
+--]]
