@@ -34,5 +34,7 @@ return {
                 { name = 'buffer' },
             })
         })
+
+        -- LSP capabilities setup in lsp.lua.
     end,
 }
