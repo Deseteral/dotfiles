@@ -1,0 +1,15 @@
+[nvim]
+targets = [
+    { src = "~/.config/nvim", dir = "config" },
+]
+
+[starship]
+targets = [
+    { src = "~/.config/starship.toml" },
+]
+
+[wezterm]
+targets = [
+    { src = "~/.wezterm.lua" },
+]
+
