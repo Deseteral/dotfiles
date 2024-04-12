@@ -14,8 +14,13 @@ return {
             },
         })
 
-        vim.keymap.set("n", "<D-o>", function() 
+        local open_file_picker = function()
             MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-        end)
+        end
+
+        vim.keymap.set('n', '<leader>oo', open_file_picker)
+
+        -- Neovide keymaps (with cmd).
+        vim.keymap.set('n', '<D-o>', open_file_picker)
     end,
 }
