@@ -7,6 +7,8 @@ import argparse
 
 HELP_APPLY = 'apply configuration stored in the repository'
 HELP_FETCH = 'fetch actual configuration and store it in the repository'
+HELP_SELECT = 'comma separated list of fragments to operate on or all fragments when omited'
+HELP_LIST = 'list fragments present in configuration file'
 
 
 def main():
@@ -17,10 +19,21 @@ def main():
         print('Could not read fragments config file.')
         sys.exit(1)
 
+    config_fragments = set(data.keys())
+    actual_fragments = config_fragments
+    if args.select is not None:
+        actual_fragments = config_fragments & args.select
+
+    if len(actual_fragments) == 0:
+        print('Cannot perform operations without selected fragments.')
+        sys.exit(1)
+
     if args.fetch:
-        fetch_fragments(data)
+        fetch_fragments(data, actual_fragments)
     elif args.apply:
-        apply_fragments(data)
+        apply_fragments(data, actual_fragments)
+    elif args.list:
+        list_fragments(data)
 
 
 def parse_args():
@@ -29,13 +42,20 @@ def parse_args():
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--apply', help=HELP_APPLY, action='store_true')
     group.add_argument('--fetch', help=HELP_FETCH, action='store_true')
+    group.add_argument('--list', help=HELP_LIST, action='store_true')
     group.required = True
 
-    return parser.parse_args()
+    parser.add_argument('--select', help=HELP_SELECT, type=str)
+
+    args = parser.parse_args()
+
+    if args.select is not None:
+        args.select = set([s.strip() for s in args.select.split(',')])
+
+    return args
 
 
-def fetch_fragments(data):
-    fragments = list(data.keys())
+def fetch_fragments(data, fragments):
     print(f'Performing fetch for {', '.join(fragments)} fragments.')
 
     mkdir('./fragments')
@@ -57,8 +77,7 @@ def fetch_fragments(data):
             copy(src, target_dir)
 
 
-def apply_fragments(data):
-    fragments = list(data.keys())
+def apply_fragments(data, fragments):
     print(f'Performing apply for {', '.join(fragments)} fragments.')
 
     for fragment in fragments:
@@ -74,6 +93,12 @@ def apply_fragments(data):
             target_dir += '/' + basename
 
             copy(target_dir, src)
+
+
+def list_fragments(data):
+    fragments = ', '.join(data.keys())
+    print('Fragments defined in configuration file:')
+    print(fragments)
 
 
 def read_fragments_config():
