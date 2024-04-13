@@ -13,3 +13,7 @@ targets = [
     { src = "~/.wezterm.lua" },
 ]
 
+[fish]
+targets = [
+    { src = "~/.config/fish/config.fish" }
+]
