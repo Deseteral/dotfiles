@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import shutil
-import sys
 import tomllib
 import argparse
 
@@ -16,8 +15,7 @@ def main():
 
     data = read_fragments_config()
     if data is None:
-        print('Could not read fragments config file.')
-        sys.exit(1)
+        return
 
     config_fragments = set(data.keys())
     actual_fragments = config_fragments
@@ -26,7 +24,7 @@ def main():
 
     if len(actual_fragments) == 0:
         print('Cannot perform operations without selected fragments.')
-        sys.exit(1)
+        return
 
     if args.fetch:
         fetch_fragments(data, actual_fragments)
@@ -64,14 +62,14 @@ def fetch_fragments(data, fragments):
         for target in data[fragment]['targets']:
             src = os.path.expanduser(target['src'])
             basename = os.path.basename(src)
-            target_dir = './fragments/' + fragment
+            target_dir = os.path.join('.', 'fragments', fragment)
 
             if 'dir' in target:
                 subdir = os.path.expanduser(target['dir'])
-                target_dir += '/' + subdir
+                target_dir = os.path.join(target_dir, subdir)
 
             if os.path.isdir(src):
-                target_dir += '/' + basename
+                target_dir = os.path.join(target_dir, basename)
 
             mkdir(target_dir)
             copy(src, target_dir)
@@ -83,14 +81,14 @@ def apply_fragments(data, fragments):
     for fragment in fragments:
         for target in data[fragment]['targets']:
             src = os.path.expanduser(target['src'])
-            target_dir = './fragments/' + fragment
+            target_dir = os.path.join('.', 'fragments', fragment)
 
             if 'dir' in target:
                 subdir = os.path.expanduser(target['dir'])
-                target_dir += '/' + subdir
+                target_dir = os.path.join(target_dir, subdir)
 
             basename = os.path.basename(src)
-            target_dir += '/' + basename
+            target_dir = os.path.join(target_dir, basename)
 
             copy(target_dir, src)
 
@@ -102,10 +100,14 @@ def list_fragments(data):
 
 
 def read_fragments_config():
-    data = None
-    with open('./fragments.toml', mode='rb') as fp:
-        data = tomllib.load(fp)
-    return data
+    try:
+        f = open('./fragments.toml', mode='rb')
+        data = tomllib.load(f)
+        f.close()
+        return data
+    except Exception:
+        print('Could not read fragments config file.')
+        return None
 
 
 def mkdir(p):
