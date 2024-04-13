@@ -17,6 +17,7 @@ import os
 import shutil
 import tomllib
 import argparse
+from typing import Any
 
 HELP_APPLY = 'apply configuration stored in the repository'
 HELP_FETCH = 'fetch actual configuration and store it in the repository'
@@ -48,7 +49,7 @@ def main():
         list_fragments(data)
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     group = parser.add_mutually_exclusive_group()
@@ -67,7 +68,7 @@ def parse_args():
     return args
 
 
-def fetch_fragments(data, fragments):
+def fetch_fragments(data: dict[str, Any], fragments: set[str]) -> None:
     print(f'Performing fetch for {', '.join(fragments)} fragments.')
 
     mkdir('./fragments')
@@ -89,7 +90,7 @@ def fetch_fragments(data, fragments):
             copy(src, target_dir)
 
 
-def apply_fragments(data, fragments):
+def apply_fragments(data: dict[str, Any], fragments: set[str]) -> None:
     print(f'Performing apply for {', '.join(fragments)} fragments.')
 
     for fragment in fragments:
@@ -107,13 +108,13 @@ def apply_fragments(data, fragments):
             copy(target_dir, src)
 
 
-def list_fragments(data):
+def list_fragments(data: dict[str, Any]) -> None:
     fragments = ', '.join(data.keys())
     print('Fragments defined in configuration file:')
     print(fragments)
 
 
-def read_fragments_config():
+def read_fragments_config() -> dict[str, Any] | None:
     try:
         f = open('./fragments.toml', mode='rb')
         data = tomllib.load(f)
@@ -124,18 +125,18 @@ def read_fragments_config():
         return None
 
 
-def mkdir(p):
-    if not os.path.exists(p):
-        os.makedirs(p)
+def mkdir(dir_path: str) -> None:
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
 
 
-def copy(s, d):
-    print(f'Copying "{s}" to "{d}"...', end='')
-    if os.path.isdir(s):
-        shutil.copytree(s, d, dirs_exist_ok=True)
+def copy(src: str, dst: str) -> None:
+    print(f'Copying "{src}" to "{dst}"...', end='')
+    if os.path.isdir(src):
+        shutil.copytree(src, dst, dirs_exist_ok=True)
         print('  Done.')
-    elif os.path.isfile(s):
-        shutil.copy2(s, d)
+    elif os.path.isfile(src):
+        shutil.copy2(src, dst)
         print('  Done.')
     else:
         print('  Skipped...')
