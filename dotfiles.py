@@ -1,4 +1,18 @@
 #!/usr/bin/env python3
+
+# Script for managing and backing up various configuration files in the system.
+# It operates on fragments - configuration groups (most likely corresponding
+# to apps). Each fragment can have more then one file/directory that is going
+# to process - targets.
+#
+# Fragments and their targets are defined in fragments.toml file. Example:
+#
+# [nvim]
+# targets = [
+#     { src = "~/.config/nvim", dir = "config" },
+# ]
+#
+
 import os
 import shutil
 import tomllib
@@ -6,7 +20,7 @@ import argparse
 
 HELP_APPLY = 'apply configuration stored in the repository'
 HELP_FETCH = 'fetch actual configuration and store it in the repository'
-HELP_SELECT = 'comma separated list of fragments to operate on or all fragments when omited'
+HELP_SELECT = 'comma separated list of fragments to operate on, or all fragments when omited'
 HELP_LIST = 'list fragments present in configuration file'
 
 
@@ -18,18 +32,18 @@ def main():
         return
 
     config_fragments = set(data.keys())
-    actual_fragments = config_fragments
+    fragments = config_fragments
     if args.select is not None:
-        actual_fragments = config_fragments & args.select
+        fragments = config_fragments & args.select
 
-    if len(actual_fragments) == 0:
+    if len(fragments) == 0:
         print('Cannot perform operations without selected fragments.')
         return
 
     if args.fetch:
-        fetch_fragments(data, actual_fragments)
+        fetch_fragments(data, fragments)
     elif args.apply:
-        apply_fragments(data, actual_fragments)
+        apply_fragments(data, fragments)
     elif args.list:
         list_fragments(data)
 
