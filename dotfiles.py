@@ -3,25 +3,35 @@ import os
 import shutil
 import sys
 import tomllib
+import argparse
+
+HELP_APPLY = 'apply configuration stored in the repository'
+HELP_FETCH = 'fetch actual configuration and store it in the repository'
 
 
 def main():
+    args = parse_args()
+
     data = read_fragments_config()
     if data is None:
         print('Could not read fragments config file.')
         sys.exit(1)
 
-    if len(sys.argv) == 1:
-        print_help_and_exit()
-
-    command = sys.argv[1]
-    if command not in ['fetch', 'apply']:
-        print_help_and_exit()
-
-    if command == 'fetch':
+    if args.fetch:
         fetch_fragments(data)
-    elif command == 'apply':
+    elif args.apply:
         apply_fragments(data)
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--apply', help=HELP_APPLY, action='store_true')
+    group.add_argument('--fetch', help=HELP_FETCH, action='store_true')
+    group.required = True
+
+    return parser.parse_args()
 
 
 def fetch_fragments(data):
@@ -71,11 +81,6 @@ def read_fragments_config():
     with open('./fragments.toml', mode='rb') as fp:
         data = tomllib.load(fp)
     return data
-
-
-def print_help_and_exit():
-    print('Help')
-    sys.exit(1)
 
 
 def mkdir(p):
