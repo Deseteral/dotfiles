@@ -4,9 +4,10 @@ import shutil
 import sys
 import tomllib
 
+
 def main():
     data = read_fragments_config()
-    if data == None:
+    if data is None:
         print('Could not read fragments config file.')
         sys.exit(1)
 
@@ -14,7 +15,7 @@ def main():
         print_help_and_exit()
 
     command = sys.argv[1]
-    if command not in ["fetch", "apply"]:
+    if command not in ['fetch', 'apply']:
         print_help_and_exit()
 
     if command == 'fetch':
@@ -22,17 +23,18 @@ def main():
     elif command == 'apply':
         apply_fragments(data)
 
+
 def fetch_fragments(data):
     fragments = list(data.keys())
     print(f'Performing fetch for {', '.join(fragments)} fragments.')
 
-    mkdir("./fragments")
+    mkdir('./fragments')
 
     for fragment in fragments:
         for target in data[fragment]['targets']:
             src = os.path.expanduser(target['src'])
             basename = os.path.basename(src)
-            target_dir = "./fragments/" + fragment
+            target_dir = './fragments/' + fragment
 
             if 'dir' in target:
                 subdir = os.path.expanduser(target['dir'])
@@ -41,8 +43,9 @@ def fetch_fragments(data):
             if os.path.isdir(src):
                 target_dir += '/' + basename
 
-            mkdir(target_dir) 
+            mkdir(target_dir)
             copy(src, target_dir)
+
 
 def apply_fragments(data):
     fragments = list(data.keys())
@@ -51,7 +54,7 @@ def apply_fragments(data):
     for fragment in fragments:
         for target in data[fragment]['targets']:
             src = os.path.expanduser(target['src'])
-            target_dir = "./fragments/" + fragment 
+            target_dir = './fragments/' + fragment
 
             if 'dir' in target:
                 subdir = os.path.expanduser(target['dir'])
@@ -62,19 +65,23 @@ def apply_fragments(data):
 
             copy(target_dir, src)
 
+
 def read_fragments_config():
     data = None
-    with open("./fragments.toml", mode="rb") as fp:
+    with open('./fragments.toml', mode='rb') as fp:
         data = tomllib.load(fp)
     return data
 
+
 def print_help_and_exit():
-    print("Help")
+    print('Help')
     sys.exit(1)
+
 
 def mkdir(p):
     if not os.path.exists(p):
         os.makedirs(p)
+
 
 def copy(s, d):
     print(f'Copying "{s}" to "{d}"...', end='')
@@ -85,8 +92,8 @@ def copy(s, d):
         shutil.copy2(s, d)
         print('  Done.')
     else:
-        print(f'  Skipped...')
+        print('  Skipped...')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
