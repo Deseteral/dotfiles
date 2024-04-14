@@ -8,6 +8,7 @@ config.color_scheme = 'flexoki-dark'
 -- Font
 config.font = wezterm.font('Berkeley Mono')
 config.font_size = 15.0
+config.custom_block_glyphs = false
 
 -- Window config
 config.use_resize_increments = true
@@ -56,9 +57,15 @@ wezterm.on(
         if tab_title and #tab_title > 0 then
             title = tab_title
         end
-        return {
-            { Text = ' ' .. title .. ' ' },
-        }
+        if tab.is_active then
+            return {
+                { Text = ' ' .. title .. ' ' },
+            }
+        else
+            return {
+                { Text = '  ' .. title .. '  ' },
+            }
+        end
     end
 )
 
