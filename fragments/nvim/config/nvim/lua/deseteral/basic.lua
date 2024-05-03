@@ -10,6 +10,10 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
 
+-- Disable Netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Key mappings
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", ":vsplit<CR><C-w><C-w>", { noremap = true })
