@@ -7,7 +7,10 @@ return {
 
         require("nvim-tree").setup({
             git = {
-                enable = false,
+                enable = true,
+            },
+            filters = {
+                custom = { "^.git$" }
             },
             view = {
                 float = {
@@ -37,6 +40,10 @@ return {
                 end,
             },
         })
+
+        local api = require("nvim-tree.api")
+        local Event = api.events.Event
+        api.events.subscribe(Event.TreeOpen, function() api.tree.expand_all() end)
 
         vim.keymap.set("n", "<leader>ot", ":NvimTreeToggle<cr>", { silent = true, noremap = true })
     end
