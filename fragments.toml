@@ -17,3 +17,8 @@ targets = [
 targets = [
     { src = "~/.config/fish/config.fish" }
 ]
+
+[emacs]
+targets = [
+    { src = "~/.config/doom" }
+]
