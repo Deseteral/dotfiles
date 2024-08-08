@@ -1,0 +1,261 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "window.nativeTabs": true,
+    "window.commandCenter": true,
+    "workbench.editor.showTabs": "multiple",
+    "breadcrumbs.enabled": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.associations": {
+        ".compilerc": "json",
+        "*.geojson": "json",
+    },
+    "search.exclude": {
+        "**/coverge": true,
+        "**/dist": true,
+        "**/package-lock.json": true
+    },
+    /* */
+    /* === FONTS ======================================================================================================================== */
+    /* */
+    // "editor.fontFamily": "FiraCode Nerd Font",
+    // "editor.fontSize": 13,
+    // // "editor.fontWeight": "300",
+    // "editor.fontLigatures": true,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "Inconsolata",
+    // "editor.fontSize": 16,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "Input Mono",
+    // "editor.fontWeight": "400",
+    // "workbench.fontAliasing": "antialiased",
+    // "editor.fontSize": 13,
+    // "editor.letterSpacing": -0.2,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "Cascadia Code, Roboto Mono",
+    // "editor.fontSize": 14,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "JetBrains Mono, Roboto Mono",
+    // "editor.fontSize": 14,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "Hasklig",
+    // "editor.fontSize": 14,
+    // "editor.fontLigatures": true,
+    // "editor.fontWeight": "500",
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "Roboto Mono",
+    // "editor.fontSize": 13,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "JuliaMono",
+    // "editor.fontSize": 14,
+    // "editor.fontLigatures": true,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "DM Mono",
+    // "editor.fontSize": 14,
+    // "editor.fontLigatures": true,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    // "editor.fontFamily": "Source Code Pro",
+    // "editor.fontSize": 14,
+    /* -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  */
+    "editor.fontFamily": "Berkeley Mono",
+    "editor.fontSize": 14,
+    "editor.fontLigatures": false,
+    /* */
+    /* === EDITOR ======================================================================================================================= */
+    /* */
+    "editor.rulers": [],
+    "editor.detectIndentation": true,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.multiCursorModifier": "alt",
+    "editor.cursorBlinking": "phase",
+    "editor.dragAndDrop": false,
+    "editor.smoothScrolling": true,
+    "editor.guides.bracketPairs": "active",
+    "files.insertFinalNewline": true,
+    "workbench.tree.indent": 20,
+    "workbench.editor.enablePreview": false,
+    /* */
+    /* === CODELENS ===================================================================================================================== */
+    /* */
+    "editor.codeLens": true,
+    "gitlens.codeLens.enabled": false,
+    "typescript.referencesCodeLens.enabled": false,
+    /* */
+    /* === TERMINAL  ==================================================================================================================== */
+    /* */
+    "terminal.integrated.profiles.osx": {
+        "fish": {
+            "path": "/opt/homebrew/bin/fish",
+            "args": [
+                "-l",
+            ],
+        }
+    },
+    "terminal.integrated.defaultProfile.osx": "fish",
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.letterSpacing": 1,
+    /* */
+    /* === ESLINT ======================================================================================================================= */
+    /* */
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "javascript.validate.enable": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    /* */
+    /* === RUST ========================================================================================================================= */
+    /* */
+    "rust.clippy_preference": "on",
+    "rust-client.updateOnStartup": true,
+    "rust.all_features": true,
+    "rust-analyzer.displayInlayHints": false,
+    /* */
+    /* === TELEMETRY ==================================================================================================================== */
+    /* */
+    "telemetry.telemetryLevel": "off",
+    /* */
+    /* === MISC ========================================================================================================================= */
+    /* */
+    "emmet.showAbbreviationSuggestions": false,
+    "emmet.showExpandedAbbreviation": "never",
+    "python.linting.pylintEnabled": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "git.confirmSync": false,
+    "javascript.preferences.useAliasesForRenames": false,
+    "typescript.preferences.useAliasesForRenames": false,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true,
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    /* */
+    /* === DISABLE BOLD AND ITALICS IN CODE SYNTAX  ===================================================================================== */
+    /* */
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "comment",
+                    "comment.block",
+                    "comment.block.documentation",
+                    "comment.line",
+                    "constant",
+                    "constant.character",
+                    "constant.character.escape",
+                    "constant.numeric",
+                    "constant.numeric.integer",
+                    "constant.numeric.float",
+                    "constant.numeric.hex",
+                    "constant.numeric.octal",
+                    "constant.other",
+                    "constant.regexp",
+                    "constant.rgb-value",
+                    "emphasis",
+                    "entity",
+                    "entity.name",
+                    "entity.name.class",
+                    "entity.name.function",
+                    "entity.name.method",
+                    "entity.name.section",
+                    "entity.name.selector",
+                    "entity.name.tag",
+                    "entity.name.type",
+                    "entity.other",
+                    "entity.other.attribute-name",
+                    "entity.other.inherited-class",
+                    "invalid",
+                    "invalid.deprecated",
+                    "invalid.illegal",
+                    "keyword",
+                    "keyword.control",
+                    "keyword.operator",
+                    "keyword.operator.new",
+                    "keyword.operator.assignment",
+                    "keyword.operator.arithmetic",
+                    "keyword.operator.logical",
+                    "keyword.other",
+                    "markup",
+                    "markup.bold",
+                    "markup.changed",
+                    "markup.deleted",
+                    "markup.heading",
+                    "markup.inline.raw",
+                    "markup.inserted",
+                    "markup.italic",
+                    "markup.list",
+                    "markup.list.numbered",
+                    "markup.list.unnumbered",
+                    "markup.other",
+                    "markup.quote",
+                    "markup.raw",
+                    "markup.underline",
+                    "markup.underline.link",
+                    "meta",
+                    "meta.block",
+                    "meta.cast",
+                    "meta.class",
+                    "meta.function",
+                    "meta.function-call",
+                    "meta.preprocessor",
+                    "meta.return-type",
+                    "meta.selector",
+                    "meta.tag",
+                    "meta.type.annotation",
+                    "meta.type",
+                    "punctuation.definition.string.begin",
+                    "punctuation.definition.string.end",
+                    "punctuation.separator",
+                    "punctuation.separator.continuation",
+                    "punctuation.terminator",
+                    "storage",
+                    "storage.modifier",
+                    "storage.type",
+                    "string",
+                    "string.interpolated",
+                    "string.other",
+                    "string.quoted",
+                    "string.quoted.double",
+                    "string.quoted.other",
+                    "string.quoted.single",
+                    "string.quoted.triple",
+                    "string.regexp",
+                    "string.unquoted",
+                    "strong",
+                    "support",
+                    "support.class",
+                    "support.constant",
+                    "support.function",
+                    "support.other",
+                    "support.type",
+                    "support.type.property-name",
+                    "support.variable",
+                    "variable",
+                    "variable.language",
+                    "variable.name",
+                    "variable.other",
+                    "variable.other.readwrite",
+                    "variable.parameter"
+                ],
+                "settings": {
+                    "fontStyle": ""
+                }
+            }
+        ]
+    },
+    "Lua.telemetry.enable": false,
+    "editor.stickyScroll.enabled": true,
+    "python.experiments.enabled": false,
+    "python.linting.lintOnSave": false,
+    "workbench.colorTheme": "Flexoki Dark",
+    "editor.formatOnSave": true,
+    "lldb.suppressUpdateNotifications": true,
+    "dotnet.codeLens.enableReferencesCodeLens": false,
+    "workbench.startupEditor": "none",
+    "editor.lineNumbers": "relative"
+}

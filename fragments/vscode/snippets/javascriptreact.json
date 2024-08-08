@@ -1,0 +1,37 @@
+{
+	"console.log": {
+		"prefix": "ll",
+		"body": [
+			"console.log($1);"
+		],
+		"description": "Log output to console"
+	},
+	"new Promise": {
+		"prefix": "pprom",
+		"body": [
+			"return new Promise((resolve, reject) => {",
+			"  $1",
+			"});"
+		],
+		"description": "Creates new Promise"
+	},
+	"My React SFC": {
+		"prefix": "sfc",
+		"body": [
+			"function $1() {",
+			"  return (",
+			"  );",
+			"}",
+			"",
+			"export default $1;"
+		],
+		"description": "Creates empty stateless functional component"
+	},
+	"import shallow": {
+		"prefix": "ims",
+		"body": [
+			"import { shallow } from 'enzyme';"
+		],
+		"description": "Imports shallow from enzyme"
+	}
+}

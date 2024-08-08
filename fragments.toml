@@ -17,3 +17,10 @@ targets = [
 targets = [
     { src = "~/.config/fish/config.fish" },
 ]
+
+[vscode]
+targets = [
+    { src = "~/Library/Application Support/Code/User/settings.json" },
+    { src = "~/Library/Application Support/Code/User/keybindings.json" },
+    { src = "~/Library/Application Support/Code/User/snippets" },
+]

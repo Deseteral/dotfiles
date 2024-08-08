@@ -1,0 +1,43 @@
+{
+	"console.log": {
+		"prefix": "ll",
+		"body": [
+			"console.log($1);"
+		],
+		"description": "Log output to console"
+	},
+	"new Promise": {
+		"prefix": "pprom",
+		"body": [
+			"return new Promise((resolve, reject) => {",
+			"  $1",
+			"});"
+		],
+		"description": "Creates new Promise"
+	},
+	"sfc": {
+		"prefix": "sfc",
+		"body": [
+			"interface $1Props {",
+  			"",
+			"}",
+			"",
+			"function $1(props: $1Props): JSX.Element {",
+			"  return (",
+			"",
+			"  );",
+			"}",
+			"",
+			"export { $1, $1Props };"
+		],
+		"description": "React Functional comp"
+	},
+	"ims": {
+		"prefix": "ims",
+		"body": "import styled from 'styled-components';"
+	},
+	"imr": {
+		"prefix": "imr",
+		"body": "import * as React from 'react';"
+	}
+}
