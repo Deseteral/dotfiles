@@ -24,3 +24,8 @@ targets = [
     { src = "~/Library/Application Support/Code/User/keybindings.json" },
     { src = "~/Library/Application Support/Code/User/snippets" },
 ]
+
+[emacs]
+targets = [
+    { src = "~/.config/doom" }
+]
