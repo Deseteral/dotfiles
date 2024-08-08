@@ -15,5 +15,5 @@ targets = [
 
 [fish]
 targets = [
-    { src = "~/.config/fish/config.fish" }
+    { src = "~/.config/fish/config.fish" },
 ]

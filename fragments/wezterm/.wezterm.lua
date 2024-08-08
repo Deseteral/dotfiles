@@ -25,6 +25,7 @@ config.show_new_tab_button_in_tab_bar = false
 config.show_tab_index_in_tab_bar = false
 config.tab_max_width = 32
 config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
 
 config.colors = {
     tab_bar = {
