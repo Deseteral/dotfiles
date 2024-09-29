@@ -12,6 +12,13 @@ return {
             filters = {
                 custom = { "^.git$" }
             },
+            actions = {
+                open_file = {
+                    window_picker = {
+                        enable = false,
+                    },
+                },
+            },
             view = {
                 float = {
                     enable = true,
