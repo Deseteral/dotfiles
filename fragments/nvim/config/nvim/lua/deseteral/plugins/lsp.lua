@@ -19,6 +19,8 @@ return {
                 'rust_analyzer',
                 'pyright',
                 'omnisharp',
+                'gopls',
+                'templ',
             },
 
             handlers = {

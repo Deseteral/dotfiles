@@ -1,7 +1,7 @@
 if vim.g.neovide then
     vim.o.guifont = 'Berkeley Mono,Symbols Nerd Font Mono:h15'
 
-    -- Allow clipboard copy paste in neovim
+    -- Allow clipboard copy paste in neovim.
     vim.keymap.set('n', '<D-s>', ':w<CR>')      -- Save
     vim.keymap.set('v', '<D-c>', '"+y')         -- Copy
     vim.keymap.set('n', '<D-v>', '"+P')         -- Paste normal mode
