@@ -21,6 +21,7 @@ return {
                 'omnisharp',
                 'gopls',
                 'templ',
+                'cssls',
             },
 
             handlers = {
