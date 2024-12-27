@@ -3,7 +3,8 @@ local config = wezterm.config_builder()
 
 -- Basic
 config.default_cwd = wezterm.home_dir .. '/Developer'
-config.color_scheme = 'flexoki-dark'
+-- config.color_scheme = 'flexoki-dark'
+config.color_scheme = 'Macintosh (base16)'
 
 -- Font
 config.font = wezterm.font('Berkeley Mono')
