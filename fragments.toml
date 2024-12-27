@@ -13,6 +13,11 @@ targets = [
     { src = "~/.wezterm.lua" },
 ]
 
+[ghostty]
+targets = [
+    { src = "~/Library/Application Support/com.mitchellh.ghostty/config" },
+]
+
 [fish]
 targets = [
     { src = "~/.config/fish/config.fish" },
