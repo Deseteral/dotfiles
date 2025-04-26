@@ -14,7 +14,16 @@ return {
         config = function()
             vim.opt.background = "dark"
             -- vim.opt.background = "light"
-            vim.cmd.colorscheme("oxocarbon")
+            -- vim.cmd.colorscheme("oxocarbon")
+        end
+    },
+    {
+        "nuvic/flexoki-nvim",
+        config = function()
+            require("flexoki").setup({
+                variant = "moon", -- auto, moon, or dawn
+            })
+            vim.cmd.colorscheme("flexoki")
         end
     }
 }
