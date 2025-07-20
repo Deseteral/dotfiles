@@ -4,7 +4,7 @@ set DOTNET_CLI_TELEMETRY_OPTOUT 1
 set HAXE_STD_PATH "/opt/homebrew/lib/haxe/std"
 set PLAYDATE_SDK_PATH "$HOME/Developer/PlaydateSDK"
 
-set PATH $HOME/bin /opt/homebrew/bin $HOME/.cargo/bin $HOME/Developer/devops/bin /opt/homebrew/opt/mongodb-community@4.4/bin $HOME/.jenv/bin /Applications/tic80.app/Contents/MacOS $PATH
+set PATH $HOME/bin /opt/homebrew/bin $HOME/.cargo/bin $HOME/Developer/devops/bin /opt/homebrew/opt/mongodb-community@4.4/bin $HOME/.jenv/bin /Applications/tic80.app/Contents/MacOS $HOME/Developer/nastrajacz/bin $PATH
 
 status --is-interactive; and source (jenv init -|psub)
 
