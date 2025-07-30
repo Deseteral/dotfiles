@@ -4,10 +4,11 @@ local config = wezterm.config_builder()
 -- Basic
 config.default_cwd = wezterm.home_dir .. '/Developer'
 -- config.color_scheme = 'flexoki-dark'
+-- config.color_scheme = '3024 (dark) (terminal.sexy)'
 config.color_scheme = 'Macintosh (base16)'
 
 -- Font
-config.font = wezterm.font('Berkeley Mono')
+config.font = wezterm.font('TX-02')
 config.font_size = 15.0
 config.custom_block_glyphs = false
 
